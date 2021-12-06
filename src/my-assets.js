@@ -1,7 +1,6 @@
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import Web3Modal from "web3modal"
 
 import {
   nftmarketaddress, nftaddress
@@ -19,8 +18,8 @@ export default function MyAssets() {
   async function loadNFTs() {
     const Web3 = require('web3');
     const web3 = new Web3('https://speedy-nodes-nyc.moralis.io/31f4ff4c3d8154c166796ac3/bsc/testnet');
-    const connection = await window.ethereum.request({ method: 'eth_requestAccounts' }); 
-    const provider = new ethers.providers.Web3Provider(connection)
+    await window.ethereum.request({ method: 'eth_requestAccounts' }); 
+    const provider = new ethers.providers.Web3Provider(web3)
     const signer = provider.getSigner()
       
     const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
