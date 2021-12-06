@@ -1,7 +1,6 @@
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import Web3Modal from "web3modal"
 
 import {
   nftaddress, nftmarketaddress
@@ -23,9 +22,10 @@ export default function Home() {
     loadNFTs()
   }, [])
   async function loadNFTs() {    
-    const provider = new ethers.providers.JsonRpcProvider(rpcEndpoint)
+    const provider = new ethers.providers.JsonRpcProvider('https://speedy-nodes-nyc.moralis.io/31f4ff4c3d8154c166796ac3/bsc/testnet')
+    const signer = provider.getSigner()
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
-    const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, provider)
+    const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
     const data = await marketContract.fetchMarketItems()
     
     const items = await Promise.all(data.map(async i => {
