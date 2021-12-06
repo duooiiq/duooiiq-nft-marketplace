@@ -53,8 +53,8 @@ export default function CreateItem() {
   async function createSale(url) {
     const Web3 = require('web3');
     const web3 = new Web3('https://speedy-nodes-nyc.moralis.io/31f4ff4c3d8154c166796ac3/bsc/testnet');
-    const connection = await window.ethereum.request({ method: 'eth_requestAccounts' }); 
-    const provider = new ethers.providers.Web3Provider(connection)    
+    await window.ethereum.request({ method: 'eth_requestAccounts' }); 
+    const provider = new ethers.providers.Web3Provider(web3)    
     const signer = provider.getSigner()
     
     /* next, create the item */
